@@ -1,4 +1,4 @@
-name: Deploy vue to Github Pages
+name: Deploy nuxt to Github Pages
 
 on: 
   push:
@@ -14,7 +14,7 @@ jobs:
     - name: Build
       run: | 
         yarn install
-        yarn build
+        yarn generate
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
