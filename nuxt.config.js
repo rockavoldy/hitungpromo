@@ -55,6 +55,9 @@ export default {
   /*
    ** Build configuration
    */
+  router: {
+    base: '/hitungpromo/'
+  },
   build: {
     /*
      ** You can extend webpack config here
