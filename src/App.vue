@@ -10,8 +10,15 @@
       </div>
 
       <div>
-        <button class="my-2" @click="addItem()"><BtnAddItem /></button>
-        <table class="table w-full border">
+        <div class="flex flex-wrap justify-between px-2 my-2 md:px-0">
+          <button @click="addItem()">
+            <BtnAddItem />
+          </button>
+          <button>
+            <BtnNext />
+          </button>
+        </div>
+        <table class="hidden md:table w-full border">
           <thead>
             <tr class="table-row flex flex-wrap text-center bg-gray-400">
               <th class="table-cell py-1 w-4/12">Nama</th>
@@ -24,7 +31,7 @@
           <tbody v-for="(item, index) in listItems" :key="index">
             <tr
               class="table-row flex flex-wrap text-center"
-              :class="index % 2 == 0 ? 'bg-gray-100' : 'bg-gray-200'"
+              :class="index % 2 == 0 ? 'bg-gray-100' : 'bg-gray-300'"
             >
               <td class="table-cell px-2 py-1 border">
                 <input
@@ -54,12 +61,91 @@
               </td>
               <td class="table-cell px-2 py-1 border">
                 <div
-                  class="border bg-white w-full rounded py-1 px-2 leading-tight"
+                  class="border bg-white w-full rounded py-1 px-2 leading-tight inline-block text-left"
                 >
                   {{ (item.harga * item.jumlah) | currency }}
                 </div>
               </td>
               <td class="table-cell px-2 py-1 border">
+                <button class="my-1" @click="removeItem(index)">
+                  <BtnRemoveItem />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table
+          class="table w-full border md:hidden"
+          v-for="(item, index) in listItems"
+          :key="index"
+        >
+          <thead>
+            <tr class="table-row flex flex-wrap text-center bg-gray-400">
+              <th class="table-cell px-2 py-1 border">Item</th>
+              <th class="table-cell px-2 py-1 border">Hapus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="table-row flex flex-wrap text-left"
+              :class="index % 2 == 0 ? 'bg-gray-100' : 'bg-gray-200'"
+            >
+              <td class="table-cell px-2 py-1 border">
+                <tr class="table-row">
+                  <td class="table-cell px-2 py-1">
+                    <label :for="'itemNama' + index">Nama</label>
+                    <input
+                      :id="'itemNama' + index"
+                      class="border rounded w-full py-1 px-2 text-gray-700 leading-tight"
+                      v-model="item.nama"
+                      placeholder="Beef Burger"
+                    />
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td class="table-cell px-2 py-1">
+                    <tr class="table-row">
+                      <td class="table-cell">
+                        <label :for="'itemHarga' + index">Harga</label>
+                        <input
+                          :id="'itemHarga' + index"
+                          type="number"
+                          min="0"
+                          class="border rounded w-full py-1 px-2 text-gray-700 leading-tight"
+                          v-model="item.harga"
+                          placeholder="10000"
+                        />
+                      </td>
+                      <td class="table-cell">
+                        <label :for="'itemQty' + index">Qty</label>
+                        <input
+                          :id="'itemQty' + index"
+                          type="number"
+                          min="1"
+                          max="999"
+                          class="border rounded w-full py-1 pl-2 pr-1 text-gray-700 leading-tight"
+                          v-model="item.jumlah"
+                          placeholder="1"
+                        />
+                      </td>
+                    </tr>
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td class="table-cell px-2 py-1">
+                    <label :for="'itemTotal' + index">Total</label>
+                    <div
+                      :id="'itemTotal' + index"
+                      class="border w-full rounded py-1 px-2 leading-tight inline-block text-left"
+                    >
+                      {{ (item.harga * item.jumlah) | currency }}
+                    </div>
+                  </td>
+                </tr>
+              </td>
+
+              <td class="table-cell px-2 py-1 border text-center">
                 <button class="my-1" @click="removeItem(index)">
                   <BtnRemoveItem />
                 </button>
@@ -74,12 +160,14 @@
 
 <script>
 import BtnAddItem from "@/components/BtnAddItem.vue";
+import BtnNext from "@/components/BtnNext.vue";
 import BtnRemoveItem from "@/components/BtnRemoveItem.vue";
 export default {
   name: "App",
   components: {
     BtnAddItem,
     BtnRemoveItem,
+    BtnNext,
   },
   data() {
     return {
