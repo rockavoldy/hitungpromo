@@ -7991,6 +7991,11 @@ vue-cli-plugin-tailwind@~1.4.1:
     "@fullhuman/postcss-purgecss" "^2.2.0"
     tailwindcss "^1.4.5"
 
+vue-currency-filter@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/vue-currency-filter/-/vue-currency-filter-5.1.0.tgz#f439bbc76193f4794b5ea02d905e8bec27e74234"
+  integrity sha512-wKhY9dy6/YrT11OCFplE2gYjBAroD3d3jiylFfK+OmsLV7HmAWBnCUszP0JdpxtlO+YQWVRe/W3ekoKDQgGm0w==
+
 vue-eslint-parser@^7.0.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.1.0.tgz#9cdbcc823e656b087507a1911732b867ac101e83"
