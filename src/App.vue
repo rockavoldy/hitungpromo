@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container mx-auto mt-2">
+      <div id="header" class="text-center">
+        <h1 class="text-lg capitalize">Hitung Promo</h1>
+        <h2
+          class="text-base"
+        >Sebuah kalkulator sederhana untuk membagi diskon secara merata ke setiap item</h2>
+      </div>
+
+      <div>
+        <BtnAddItem />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import BtnAddItem from "@/components/BtnAddItem.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    BtnAddItem
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
