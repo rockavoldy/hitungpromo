@@ -11,13 +11,13 @@
 
       <div>
         <div class="flex flex-wrap justify-between px-2 my-2 md:px-0">
-          <button @click="addItem()" :class="steps == 1 ? '' : 'hidden'">
+          <button @click="addItem()" :class="steps == 1 ? '' : 'hidden'" aria-label="Add Item">
             <BtnAddItem />
           </button>
-          <button @click="steps--" :class="steps != 1 ? '' : 'hidden'">
+          <button @click="steps--" :class="steps != 1 ? '' : 'hidden'" aria-label="Previous Step">
             <BtnPrev />
           </button>
-          <button @click="steps++" :class="steps != 3 ? '' : 'hidden'">
+          <button @click="steps++" :class="steps != 3 ? '' : 'hidden'" aria-label="Next Step">
             <BtnNext />
           </button>
         </div>
