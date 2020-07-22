@@ -197,7 +197,7 @@
               <tr class="table-row bg-gray-400 border">
                 <td class="table-cell border px-2 py-1" colspan="4">
                   <div class="flex flex-wrap">
-                    <div class="w-3/12 text-right pr-2 text-gray-900 text-sm md:text-md">
+                    <div class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md">
                       <label for="diskon">Diskon</label>
                     </div>
                     <div class="w-auto">
@@ -216,7 +216,7 @@
               <tr class="table-row bg-gray-400 border">
                 <td class="table-cell border px-2 py-1" colspan="4">
                   <div class="flex flex-wrap">
-                    <div class="w-3/12 text-right pr-2 text-gray-900 text-sm md:text-md">
+                    <div class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md">
                       <label for="ongkir">Delivery</label>
                     </div>
                     <div class="w-auto">
@@ -257,6 +257,50 @@
             </tfoot>
           </table>
         </div>
+        <div v-if="steps == 3">
+          <table class="table w-full border">
+            <thead>
+              <tr class="table-row flex flex-wrap text-center bg-gray-400">
+                <th class="table-cell py-1 w-4/12">Nama</th>
+                <th class="table-cell py-1">Harga</th>
+                <th class="table-cell py-1">Diskon</th>
+                <th class="table-cell py-1">Total</th>
+              </tr>
+            </thead>
+            <tbody v-for="(item, index) in calculatedItems" :key="index">
+              <tr
+                class="table-row flex flex-wrap text-center"
+                :class="index % 2 == 0 ? 'bg-gray-100' : 'bg-gray-300'"
+              >
+                <td class="table-cell px-2 py-1 border">
+                  <span class="rounded w-full py-1 px-2 text-gray-700 leading-tight">{{item.nama}}</span>
+                </td>
+                <td class="table-cell px-2 py-1 border">
+                  <span
+                    class="w-full rounded py-1 px-2 text-gray-700 leading-tight"
+                  >{{item.harga + item.pajak | currency}}</span>
+                </td>
+                <td class="table-cell px-2 py-1 border flex">
+                  <span
+                    class="rounded py-1 pl-2 pr-1 text-gray-700 leading-tight"
+                  >{{item.potongan | currency}}</span>
+                </td>
+                <td class="table-cell px-2 py-1 border">
+                  <div
+                    class="rounded py-1 px-2 leading-tight text-left"
+                  >{{ (item.total + ongkirPerItem) | currency }}</div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="table-row flex flex-wrap text-left">
+                <td class="table-cell bg-gray-400" colspan="4">
+                  <span class="text-gray-700">Ongkos Kirim/item:&nbsp;{{ongkirPerItem | currency}}</span>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -287,8 +331,17 @@ export default {
           harga: 10000,
           jumlah: 1
         }
-      ]
+      ],
+      ongkirPerItem: 0,
+      calculatedItems: []
     };
+  },
+  watch: {
+    steps: function(val) {
+      if (val == 3) {
+        this.calculate();
+      }
+    }
   },
   computed: {
     subtotal() {
@@ -301,6 +354,9 @@ export default {
     },
     grandtotal() {
       return this.subtotal + (this.ppn ? this.subtotal / 10 : 0);
+    },
+    persenDiskon() {
+      return Math.abs(Number(this.diskon)) / this.grandtotal;
     }
   },
   methods: {
@@ -312,6 +368,36 @@ export default {
         return false;
       }
       this.listItems.splice(index, 1);
+    },
+    calculate() {
+      this.listItems.forEach(el => {
+        let harga = Number(el.harga);
+        const pajak = this.ppn ? this.subtotal / 10 : 0;
+        const potongan = (harga + pajak) * this.persenDiskon;
+        let kirim = [];
+        if (el.jumlah > 1) {
+          for (let i = 0; i < el.jumlah; i++) {
+            kirim.push({
+              nama: el.nama,
+              harga: Number(harga),
+              pajak: Number(pajak),
+              potongan: Number(potongan),
+              total: Number(Math.round(harga + pajak) - potongan)
+            });
+          }
+        } else {
+          kirim.push({
+            nama: el.nama,
+            harga: Number(harga),
+            pajak: Number(pajak),
+            potongan: Number(potongan),
+            total: Number(Math.round(harga + pajak) - potongan)
+          });
+        }
+
+        this.ongkirPerItem = Math.round(this.ongkir / kirim.length);
+        this.calculatedItems = kirim;
+      });
     }
   }
 };
