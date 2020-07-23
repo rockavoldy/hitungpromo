@@ -177,7 +177,11 @@
                 </td>
 
                 <td class="table-cell px-2 py-1 border text-center">
-                  <button class="my-1" @click="removeItem(index)">
+                  <button
+                    aria-label="Hapus Item"
+                    class="my-1 bg-blue-500 hover:bg-blue-700 p-1 rounded text-white"
+                    @click="removeItem(index)"
+                  >
                     <BtnRemoveItem />
                   </button>
                 </td>
