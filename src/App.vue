@@ -26,7 +26,7 @@
         <BtnInstall
           :class="steps == 3 ? '' : 'hidden'"
           v-if="deferredPrompt != null"
-          @click.native="install"
+          @click.native="install()"
         />
       </div>
     </nav>
