@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/hitungpromo/precache-manifest.43724258c6afa215f50e511e3a81c659.js"
+  "/hitungpromo/precache-manifest.869cee51ed540884038a2d059634deb0.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "hitungpromo"});
