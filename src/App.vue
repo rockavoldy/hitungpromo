@@ -46,7 +46,7 @@
         </button>
       </div>
     </nav>
-    <div class="container mx-auto mt-20">
+    <div class="container mx-auto mt-32 md:mt-20">
       <div>
         <div v-if="steps == 1">
           <table class="hidden md:table w-full border">
