@@ -23,6 +23,11 @@
       </div>
       <div class="md:w-3/12 flex text-right justify-end">
         <BtnNext @click.native="steps++" :class="steps != 3 ? '' : 'hidden'" />
+        <BtnInstall
+          :class="steps == 3 ? '' : 'hidden'"
+          v-if="deferredPrompt != null"
+          @click.native="install"
+        />
       </div>
     </nav>
     <div class="container mx-auto mt-32 md:mt-20">
@@ -316,6 +321,7 @@
 <script>
 import BtnAddItem from "@/components/BtnAddItem.vue";
 import BtnNext from "@/components/BtnNext.vue";
+import BtnInstall from "@/components/BtnInstall.vue";
 import BtnPrev from "@/components/BtnPrev.vue";
 import BtnRemoveItem from "@/components/BtnRemoveItem.vue";
 export default {
@@ -324,7 +330,8 @@ export default {
     BtnAddItem,
     BtnRemoveItem,
     BtnPrev,
-    BtnNext
+    BtnNext,
+    BtnInstall
   },
   data() {
     return {
@@ -340,8 +347,23 @@ export default {
         }
       ],
       ongkirPerItem: 0,
-      calculatedItems: []
+      calculatedItems: [],
+      defferedPrompt: null
     };
+  },
+  created() {
+    window.addEventListener("beforeinstallprompt", e => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+    });
+    window.addEventListener("appinstalled", () => {
+      this.deferredPrompt = null;
+    });
+    if (this.$workbox) {
+      this.$workbox.addEventListener("waiting", () => {
+        this.showUpdateUI = true;
+      });
+    }
   },
   watch: {
     steps: function(val) {
@@ -367,6 +389,12 @@ export default {
     }
   },
   methods: {
+    async dismiss() {
+      this.deferredPrompt = null;
+    },
+    async install() {
+      this.deferredPrompt.prompt();
+    },
     addItem() {
       this.listItems.push({ nama: "", harga: 10000, jumlah: 1 });
     },
@@ -404,13 +432,6 @@ export default {
       });
       this.ongkirPerItem = Math.round(this.ongkir / calculatedItems.length);
       this.calculatedItems = calculatedItems;
-    }
-  },
-  created() {
-    if (this.$workbox) {
-      this.$workbox.addEventListener("waiting", () => {
-        this.showUpdateUI = true;
-      });
     }
   }
 };
