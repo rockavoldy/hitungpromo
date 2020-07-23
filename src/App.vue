@@ -399,6 +399,13 @@ export default {
         this.calculatedItems = kirim;
       });
     }
+  },
+  created() {
+    if (this.$workbox) {
+      this.$workbox.addEventListener("waiting", () => {
+        this.showUpdateUI = true;
+      });
+    }
   }
 };
 </script>
