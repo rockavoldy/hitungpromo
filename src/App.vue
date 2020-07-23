@@ -370,6 +370,7 @@ export default {
       this.listItems.splice(index, 1);
     },
     calculate() {
+      let calculatedItems = [];
       this.listItems.forEach(el => {
         let harga = Number(el.harga);
         const pajak = this.ppn ? this.subtotal / 10 : 0;
@@ -396,8 +397,9 @@ export default {
         }
 
         this.ongkirPerItem = Math.round(this.ongkir / kirim.length);
-        this.calculatedItems = kirim;
+        calculatedItems.push(kirim);
       });
+      this.calculatedItems = calculatedItems;
     }
   },
   created() {
