@@ -1,26 +1,53 @@
 <template>
   <div id="app">
-    <div class="container mx-auto mt-2">
-      <div id="header" class="text-center">
-        <h1 class="text-lg capitalize">Hitung Promo</h1>
-        <h2 class="text-base">
+    <nav
+      class="w-full fixed top-0 left-0 right-0 bg-gray-700 flex flex-wrap items-center justify-between md:justify-center px-3 py-2"
+    >
+      <div class="text-center w-full mb-2 block md:hidden">
+        <h1 class="font-bold text-white">Hitung Promo</h1>
+        <p class="text-xs text-gray-100">
           Sebuah kalkulator sederhana untuk membagi diskon secara merata ke
           setiap item
-        </h2>
+        </p>
       </div>
-
+      <div class="md:w-3/12 text-left">
+        <button
+          @click="addItem()"
+          :class="steps == 1 ? '' : 'hidden'"
+          class="bg-blue-500 hover:bg-blue-700 p-2 rounded text-white"
+          aria-label="Add Item"
+        >
+          <BtnAddItem />
+        </button>
+        <button
+          @click="steps--"
+          :class="steps != 1 ? '' : 'hidden'"
+          class="bg-blue-500 hover:bg-blue-700 p-2 rounded text-white"
+          aria-label="Previous Step"
+        >
+          <BtnPrev />
+        </button>
+      </div>
+      <div class="md:w-6/12 text-center hidden md:block">
+        <h1 class="font-bold text-white">Hitung Promo</h1>
+        <p class="text-sm text-gray-100">
+          Sebuah kalkulator sederhana untuk membagi diskon secara merata ke
+          setiap item
+        </p>
+      </div>
+      <div class="md:w-3/12 text-right">
+        <button
+          @click="steps++"
+          :class="steps != 3 ? '' : 'hidden'"
+          class="bg-blue-500 hover:bg-blue-700 p-2 rounded text-white"
+          aria-label="Next Step"
+        >
+          <BtnNext />
+        </button>
+      </div>
+    </nav>
+    <div class="container mx-auto mt-20">
       <div>
-        <div class="flex flex-wrap justify-between px-2 my-2 md:px-0">
-          <button @click="addItem()" :class="steps == 1 ? '' : 'hidden'" aria-label="Add Item">
-            <BtnAddItem />
-          </button>
-          <button @click="steps--" :class="steps != 1 ? '' : 'hidden'" aria-label="Previous Step">
-            <BtnPrev />
-          </button>
-          <button @click="steps++" :class="steps != 3 ? '' : 'hidden'" aria-label="Next Step">
-            <BtnNext />
-          </button>
-        </div>
         <div v-if="steps == 1">
           <table class="hidden md:table w-full border">
             <thead>
@@ -247,7 +274,8 @@
                           v-model="ppn"
                         />
                         <label for="pajak" class="text-xs md:text-sm text-gray-700 px-1 py-2">
-                          <span class="text-red-500">*</span>Jika Subtotal belum termasuk PPN
+                          <span class="text-red-500">*</span>Jika Subtotal belum
+                          termasuk PPN
                         </label>
                       </span>
                     </div>
@@ -273,17 +301,17 @@
                 :class="index % 2 == 0 ? 'bg-gray-100' : 'bg-gray-300'"
               >
                 <td class="table-cell px-2 py-1 border">
-                  <span class="rounded w-full py-1 px-2 text-gray-700 leading-tight">{{item.nama}}</span>
+                  <span class="rounded w-full py-1 px-2 text-gray-700 leading-tight">{{ item.nama }}</span>
                 </td>
                 <td class="table-cell px-2 py-1 border">
                   <span
                     class="w-full rounded py-1 px-2 text-gray-700 leading-tight"
-                  >{{item.harga + item.pajak | currency}}</span>
+                  >{{ (item.harga + item.pajak) | currency }}</span>
                 </td>
                 <td class="table-cell px-2 py-1 border flex">
                   <span
                     class="rounded py-1 pl-2 pr-1 text-gray-700 leading-tight"
-                  >{{item.potongan | currency}}</span>
+                  >{{ item.potongan | currency }}</span>
                 </td>
                 <td class="table-cell px-2 py-1 border">
                   <div
@@ -295,7 +323,11 @@
             <tfoot>
               <tr class="table-row flex flex-wrap text-left">
                 <td class="table-cell bg-gray-400" colspan="4">
-                  <span class="text-gray-700">Ongkos Kirim/item:&nbsp;{{ongkirPerItem | currency}}</span>
+                  <span class="text-gray-700">
+                    Ongkos Kirim/item:&nbsp;{{
+                    ongkirPerItem | currency
+                    }}
+                  </span>
                 </td>
               </tr>
             </tfoot>
