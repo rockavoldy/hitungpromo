@@ -6,6 +6,8 @@ module.exports = {
     msTileColor: "#f7fafc",
     appleMobileWebAppCache: "yes",
     manifestOptions: {
+      start_url: "./index.html",
+      display: "standalone",
       background_color: "#f7fafc",
     },
   },
