@@ -370,14 +370,14 @@ export default {
       this.listItems.splice(index, 1);
     },
     calculate() {
+      let calculatedItems = [];
       this.listItems.forEach(el => {
         let harga = Number(el.harga);
         const pajak = this.ppn ? this.subtotal / 10 : 0;
         const potongan = (harga + pajak) * this.persenDiskon;
-        let kirim = [];
         if (el.jumlah > 1) {
           for (let i = 0; i < el.jumlah; i++) {
-            kirim.push({
+            calculatedItems.push({
               nama: el.nama,
               harga: Number(harga),
               pajak: Number(pajak),
@@ -386,7 +386,7 @@ export default {
             });
           }
         } else {
-          kirim.push({
+          calculatedItems.push({
             nama: el.nama,
             harga: Number(harga),
             pajak: Number(pajak),
@@ -394,10 +394,9 @@ export default {
             total: Number(Math.round(harga + pajak) - potongan)
           });
         }
-
-        this.ongkirPerItem = Math.round(this.ongkir / kirim.length);
-        this.calculatedItems = kirim;
       });
+      this.ongkirPerItem = Math.round(this.ongkir / calculatedItems.length);
+      this.calculatedItems = calculatedItems;
     }
   },
   created() {
