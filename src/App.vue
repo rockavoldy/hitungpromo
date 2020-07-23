@@ -10,23 +10,9 @@
           setiap item
         </p>
       </div>
-      <div class="md:w-3/12 text-left">
-        <button
-          @click="addItem()"
-          :class="steps == 1 ? '' : 'hidden'"
-          class="bg-blue-500 hover:bg-blue-700 p-2 rounded text-white"
-          aria-label="Tambah Item"
-        >
-          <BtnAddItem />
-        </button>
-        <button
-          @click="steps--"
-          :class="steps != 1 ? '' : 'hidden'"
-          class="bg-blue-500 hover:bg-blue-700 p-2 rounded text-white"
-          aria-label="Step Sebelumnya"
-        >
-          <BtnPrev />
-        </button>
+      <div class="md:w-3/12 flex justify-start">
+        <BtnAddItem @click.native="addItem()" :class="steps == 1 ? '' : 'hidden'" />
+        <BtnPrev @click.native="steps--" :class="steps != 1 ? '' : 'hidden'" />
       </div>
       <div class="md:w-6/12 text-center hidden md:block">
         <h1 class="font-bold text-white">Hitung Promo</h1>
@@ -35,15 +21,8 @@
           setiap item
         </p>
       </div>
-      <div class="md:w-3/12 text-right">
-        <button
-          @click="steps++"
-          :class="steps != 3 ? '' : 'hidden'"
-          class="bg-blue-500 hover:bg-blue-700 p-2 rounded text-white"
-          aria-label="Step Selanjutnya"
-        >
-          <BtnNext />
-        </button>
+      <div class="md:w-3/12 flex text-right justify-end">
+        <BtnNext @click.native="steps++" :class="steps != 3 ? '' : 'hidden'" />
       </div>
     </nav>
     <div class="container mx-auto mt-32 md:mt-20">
@@ -96,13 +75,7 @@
                   >{{ (item.harga * item.jumlah) | currency }}</div>
                 </td>
                 <td class="table-cell px-2 py-1 border">
-                  <button
-                    aria-label="Hapus Item"
-                    class="my-1 bg-blue-500 hover:bg-blue-700 p-1 rounded text-white"
-                    @click="removeItem(index)"
-                  >
-                    <BtnRemoveItem />
-                  </button>
+                  <BtnRemoveItem @click.native="removeItem(index)" />
                 </td>
               </tr>
             </tbody>
@@ -177,13 +150,7 @@
                 </td>
 
                 <td class="table-cell px-2 py-1 border text-center">
-                  <button
-                    aria-label="Hapus Item"
-                    class="my-1 bg-blue-500 hover:bg-blue-700 p-1 rounded text-white"
-                    @click="removeItem(index)"
-                  >
-                    <BtnRemoveItem />
-                  </button>
+                  <BtnRemoveItem @click.native="removeItem(index)" />
                 </td>
               </tr>
             </tbody>
