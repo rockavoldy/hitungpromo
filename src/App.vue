@@ -15,7 +15,7 @@
           @click="addItem()"
           :class="steps == 1 ? '' : 'hidden'"
           class="bg-blue-500 hover:bg-blue-700 p-2 rounded text-white"
-          aria-label="Add Item"
+          aria-label="Tambah Item"
         >
           <BtnAddItem />
         </button>
@@ -23,7 +23,7 @@
           @click="steps--"
           :class="steps != 1 ? '' : 'hidden'"
           class="bg-blue-500 hover:bg-blue-700 p-2 rounded text-white"
-          aria-label="Previous Step"
+          aria-label="Step Sebelumnya"
         >
           <BtnPrev />
         </button>
@@ -40,7 +40,7 @@
           @click="steps++"
           :class="steps != 3 ? '' : 'hidden'"
           class="bg-blue-500 hover:bg-blue-700 p-2 rounded text-white"
-          aria-label="Next Step"
+          aria-label="Step Selanjutnya"
         >
           <BtnNext />
         </button>
@@ -96,7 +96,7 @@
                   >{{ (item.harga * item.jumlah) | currency }}</div>
                 </td>
                 <td class="table-cell px-2 py-1 border">
-                  <button class="my-1" @click="removeItem(index)">
+                  <button class="my-1" @click="removeItem(index)" aria-label="Hapus Item">
                     <BtnRemoveItem />
                   </button>
                 </td>
