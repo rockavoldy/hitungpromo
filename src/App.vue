@@ -438,6 +438,9 @@ export default {
 </script>
 
 <style>
+body {
+  overscroll-behavior-y: contain;
+}
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
