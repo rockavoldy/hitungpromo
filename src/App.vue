@@ -205,7 +205,7 @@
                 <td class="table-cell border px-2 py-1" colspan="4">
                   <div class="flex flex-wrap">
                     <div class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md">
-                      <label for="diskon">Diskon</label>
+                      <label for="diskon">Discount</label>
                     </div>
                     <div class="w-auto">
                       <input
@@ -224,7 +224,7 @@
                 <td class="table-cell border px-2 py-1" colspan="4">
                   <div class="flex flex-wrap">
                     <div class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md">
-                      <label for="ongkir">Delivery</label>
+                      <label for="ongkir">Delivery & Services</label>
                     </div>
                     <div class="w-auto">
                       <input
@@ -243,7 +243,7 @@
                 <td class="table-cell border px-2 py-1" colspan="4">
                   <div class="flex flex-wrap">
                     <div class="w-3/12 text-right pr-2 text-gray-900 text-sm md:text-md">
-                      <label for="pajak">PPN 10%</label>
+                      <label for="pajak">PPN 11%</label>
                     </div>
                     <div class="w-auto">
                       <span>
@@ -254,7 +254,7 @@
                           v-model="ppn"
                         />
                         <label for="pajak" class="text-xs md:text-sm text-gray-700 px-1 py-2">
-                          <span class="text-red-500">*</span>Jika Subtotal belum
+                          <span class="text-red-500">*</span>Centang ini jika total belum
                           termasuk PPN
                         </label>
                       </span>
@@ -382,7 +382,7 @@ export default {
       return ret;
     },
     grandtotal() {
-      return this.subtotal + (this.ppn ? this.subtotal / 10 : 0);
+      return this.subtotal + (this.ppn ? this.subtotal * 11 / 100 : 0);
     },
     persenDiskon() {
       return Math.abs(Number(this.diskon)) / this.grandtotal;
@@ -408,7 +408,7 @@ export default {
       let calculatedItems = [];
       this.listItems.forEach(el => {
         let harga = Number(el.harga);
-        const pajak = this.ppn ? this.subtotal / 10 : 0;
+        const pajak = this.ppn ? this.subtotal * 11 / 100 : 0;
         const potongan = (harga + pajak) * this.persenDiskon;
         if (el.jumlah > 1) {
           for (let i = 0; i < el.jumlah; i++) {
