@@ -1,5 +1,7 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/hitungpromo/" : "/",
+  // publicPath: process.env.NODE_ENV === "production" ? "/hitungpromo/" : "/",
+  // use above when deploy to github pages as directory
+  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   pwa: {
     name: "Hitung Promo",
     themeColor: "#f7fafc",
