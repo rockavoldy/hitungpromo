@@ -442,6 +442,7 @@ export default {
 <style>
 body {
   overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 #app {
   -webkit-font-smoothing: antialiased;
