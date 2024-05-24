@@ -11,7 +11,10 @@
         </p>
       </div>
       <div class="md:w-3/12 flex justify-start">
-        <BtnAddItem @click.native="addItem()" :class="steps == 1 ? '' : 'hidden'" />
+        <BtnAddItem
+          @click.native="addItem()"
+          :class="steps == 1 ? '' : 'hidden'"
+        />
         <BtnPrev @click.native="steps--" :class="steps != 1 ? '' : 'hidden'" />
       </div>
       <div class="md:w-6/12 text-center hidden md:block">
@@ -77,7 +80,9 @@
                 <td class="table-cell px-2 py-1 border">
                   <div
                     class="border bg-white w-full rounded py-1 px-2 leading-tight inline-block text-left"
-                  >{{ (item.harga * item.jumlah) | currency }}</div>
+                  >
+                    {{ (item.harga * item.jumlah) | currency }}
+                  </div>
                 </td>
                 <td class="table-cell px-2 py-1 border">
                   <BtnRemoveItem @click.native="removeItem(index)" />
@@ -149,7 +154,9 @@
                       <div
                         :id="'itemTotal' + index"
                         class="border w-full rounded py-1 px-2 leading-tight inline-block text-left"
-                      >{{ (item.harga * item.jumlah) | currency }}</div>
+                      >
+                        {{ (item.harga * item.jumlah) | currency }}
+                      </div>
                     </td>
                   </tr>
                 </td>
@@ -190,13 +197,17 @@
             </tbody>
             <tfoot>
               <tr class="table-row bg-gray-400">
-                <td class="table-cell text-right border pr-2" colspan="3">Subtotal</td>
+                <td class="table-cell text-right border pr-2" colspan="3">
+                  Subtotal
+                </td>
                 <td class="table-cell border pl-1">
                   <span>{{ subtotal | currency }}</span>
                 </td>
               </tr>
               <tr class="table-row bg-gray-400">
-                <td class="table-cell text-right border pr-2" colspan="3">Grand total</td>
+                <td class="table-cell text-right border pr-2" colspan="3">
+                  Grand total
+                </td>
                 <td class="table-cell border pl-1">
                   <span>{{ grandtotal | currency }}</span>
                 </td>
@@ -204,7 +215,9 @@
               <tr class="table-row bg-gray-400 border">
                 <td class="table-cell border px-2 py-1" colspan="4">
                   <div class="flex flex-wrap">
-                    <div class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md">
+                    <div
+                      class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md"
+                    >
                       <label for="diskon">Discount</label>
                     </div>
                     <div class="w-auto">
@@ -223,7 +236,9 @@
               <tr class="table-row bg-gray-400 border">
                 <td class="table-cell border px-2 py-1" colspan="4">
                   <div class="flex flex-wrap">
-                    <div class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md">
+                    <div
+                      class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md"
+                    >
                       <label for="ongkir">Delivery & Services</label>
                     </div>
                     <div class="w-auto">
@@ -242,7 +257,9 @@
               <tr class="table-row bg-gray-400 border">
                 <td class="table-cell border px-2 py-1" colspan="4">
                   <div class="flex flex-wrap">
-                    <div class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md">
+                    <div
+                      class="w-3/12 text-right pr-2 pt-1 text-gray-900 text-sm md:text-md"
+                    >
                       <label for="pajak">Pajak</label>
                     </div>
                     <div class="w-auto">
@@ -255,9 +272,12 @@
                         v-model="ppn"
                       />&nbsp;%
                       <span>
-                        <label for="pajak" class="text-xs md:text-sm text-gray-700 px-1 py-2">
-                          <span class="text-red-500">*</span>Isi dengan persen jika total belum
-                          termasuk pajak (PPN, Service tax)
+                        <label
+                          for="pajak"
+                          class="text-xs md:text-sm text-gray-700 px-1 py-2"
+                        >
+                          <span class="text-red-500">*</span>Isi dengan persen
+                          jika total belum termasuk pajak (PPN, Service tax)
                         </label>
                       </span>
                     </div>
@@ -274,6 +294,7 @@
                 <th class="table-cell py-1 w-4/12">Nama</th>
                 <th class="table-cell py-1">Harga</th>
                 <th class="table-cell py-1">Diskon</th>
+                <th class="table-cell py-1">PPN ({{ this.ppn }}%)</th>
                 <th class="table-cell py-1">Total</th>
               </tr>
             </thead>
@@ -283,32 +304,41 @@
                 :class="index % 2 == 0 ? 'bg-gray-100' : 'bg-gray-300'"
               >
                 <td class="table-cell px-2 py-1 border">
-                  <span class="rounded w-full py-1 px-2 text-gray-700 leading-tight">{{ item.nama }}</span>
+                  <span
+                    class="rounded w-full py-1 px-2 text-gray-700 leading-tight"
+                    >{{ item.nama }}</span
+                  >
                 </td>
                 <td class="table-cell px-2 py-1 border">
                   <span
                     class="w-full rounded py-1 px-2 text-gray-700 leading-tight"
-                  >{{ (item.harga + item.pajak) | currency }}</span>
+                    >{{ item.harga | currency }}</span
+                  >
                 </td>
                 <td class="table-cell px-2 py-1 border flex">
                   <span
                     class="rounded py-1 pl-2 pr-1 text-gray-700 leading-tight"
-                  >{{ item.potongan | currency }}</span>
+                    >{{ item.potongan | currency }}</span
+                  >
+                </td>
+                <td class="table-cell px-2 py-1 border flex">
+                  <span
+                    class="rounded py-1 pl-2 pr-1 text-gray-700 leading-tight"
+                    >{{ item.pajak | currency }}</span
+                  >
                 </td>
                 <td class="table-cell px-2 py-1 border">
-                  <div
-                    class="rounded py-1 px-2 leading-tight text-left"
-                  >{{ (item.total + ongkirPerItem) | currency }}</div>
+                  <div class="rounded py-1 px-2 leading-tight text-left">
+                    {{ (item.total + ongkirPerItem) | currency }}
+                  </div>
                 </td>
               </tr>
             </tbody>
             <tfoot>
               <tr class="table-row flex flex-wrap text-left">
-                <td class="table-cell bg-gray-400" colspan="4">
+                <td class="table-cell bg-gray-400" colspan="5">
                   <span class="text-gray-700">
-                    Ongkos Kirim/item:&nbsp;{{
-                    ongkirPerItem | currency
-                    }}
+                    Ongkos Kirim/item:&nbsp;{{ ongkirPerItem | currency }}
                   </span>
                 </td>
               </tr>
@@ -321,19 +351,19 @@
 </template>
 
 <script>
-import BtnAddItem from "@/components/BtnAddItem.vue";
-import BtnNext from "@/components/BtnNext.vue";
-import BtnInstall from "@/components/BtnInstall.vue";
-import BtnPrev from "@/components/BtnPrev.vue";
-import BtnRemoveItem from "@/components/BtnRemoveItem.vue";
+import BtnAddItem from '@/components/BtnAddItem.vue';
+import BtnNext from '@/components/BtnNext.vue';
+import BtnInstall from '@/components/BtnInstall.vue';
+import BtnPrev from '@/components/BtnPrev.vue';
+import BtnRemoveItem from '@/components/BtnRemoveItem.vue';
 export default {
-  name: "App",
+  name: 'App',
   components: {
     BtnAddItem,
     BtnRemoveItem,
     BtnPrev,
     BtnNext,
-    BtnInstall
+    BtnInstall,
   },
   data() {
     return {
@@ -343,26 +373,26 @@ export default {
       ppn: 0,
       listItems: [
         {
-          nama: "Beef Burger",
+          nama: 'Beef Burger',
           harga: 10000,
-          jumlah: 1
-        }
+          jumlah: 1,
+        },
       ],
       ongkirPerItem: 0,
       calculatedItems: [],
-      defferedPrompt: null
+      defferedPrompt: null,
     };
   },
   created() {
-    window.addEventListener("beforeinstallprompt", e => {
+    window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       this.deferredPrompt = e;
     });
-    window.addEventListener("appinstalled", () => {
+    window.addEventListener('appinstalled', () => {
       this.deferredPrompt = null;
     });
     if (this.$workbox) {
-      this.$workbox.addEventListener("waiting", () => {
+      this.$workbox.addEventListener('waiting', () => {
         this.showUpdateUI = true;
       });
     }
@@ -372,23 +402,25 @@ export default {
       if (val == 3) {
         this.calculate();
       }
-    }
+    },
   },
   computed: {
     subtotal() {
       let ret = 0;
-      this.listItems.forEach(el => {
+      this.listItems.forEach((el) => {
         ret += el.harga * el.jumlah;
       });
 
       return ret;
     },
     grandtotal() {
-      return this.subtotal + (this.ppn ? this.subtotal * this.ppn / 100 : 0);
+      const netPrice = this.subtotal - this.diskon;
+      const totlaPpn = this.ppn ? netPrice * (this.ppn / 100) : 0;
+      return netPrice + totlaPpn + Number(this.ongkir);
     },
     persenDiskon() {
       return Math.abs(Number(this.diskon)) / this.grandtotal;
-    }
+    },
   },
   methods: {
     async dismiss() {
@@ -398,7 +430,7 @@ export default {
       this.deferredPrompt.prompt();
     },
     addItem() {
-      this.listItems.push({ nama: "", harga: 10000, jumlah: 1 });
+      this.listItems.push({ nama: '', harga: 10000, jumlah: 1 });
     },
     removeItem(index) {
       if (this.listItems.length === 1) {
@@ -408,34 +440,23 @@ export default {
     },
     calculate() {
       let calculatedItems = [];
-      this.listItems.forEach(el => {
+      this.listItems.forEach((el) => {
         let harga = Number(el.harga);
-        const pajak = this.ppn ? this.subtotal * this.ppn / 100 : 0;
-        const potongan = (harga + pajak) * this.persenDiskon;
-        if (el.jumlah > 1) {
-          for (let i = 0; i < el.jumlah; i++) {
-            calculatedItems.push({
-              nama: el.nama,
-              harga: Number(harga),
-              pajak: Number(pajak),
-              potongan: Number(potongan),
-              total: Number(Math.round(harga + pajak) - potongan)
-            });
-          }
-        } else {
-          calculatedItems.push({
-            nama: el.nama,
-            harga: Number(harga),
-            pajak: Number(pajak),
-            potongan: Number(potongan),
-            total: Number(Math.round(harga + pajak) - potongan)
-          });
-        }
+        const proporsi = harga / this.subtotal;
+        const potongan = proporsi * this.diskon;
+        const pajak = this.ppn ? (harga - potongan) * (this.ppn / 100) : 0;
+        calculatedItems.push({
+          nama: el.nama,
+          harga: Number(harga),
+          pajak: Number(pajak),
+          potongan: Number(potongan),
+          total: Number(Math.round(harga - potongan) + pajak),
+        });
       });
       this.ongkirPerItem = Math.round(this.ongkir / calculatedItems.length);
       this.calculatedItems = calculatedItems;
-    }
-  }
+    },
+  },
 };
 </script>
 
