@@ -293,8 +293,8 @@
               <tr class="table-row flex flex-wrap text-center bg-gray-400">
                 <th class="table-cell py-1 w-4/12">Nama</th>
                 <th class="table-cell py-1">Harga</th>
-                <th class="table-cell py-1">Diskon</th>
                 <th class="table-cell py-1">PPN ({{ this.ppn }}%)</th>
+                <th class="table-cell py-1">Diskon</th>
                 <th class="table-cell py-1">Total</th>
               </tr>
             </thead>
@@ -318,13 +318,13 @@
                 <td class="table-cell px-2 py-1 border flex">
                   <span
                     class="rounded py-1 pl-2 pr-1 text-gray-700 leading-tight"
-                    >{{ item.potongan | currency }}</span
+                    >{{ item.pajak | currency }}</span
                   >
                 </td>
                 <td class="table-cell px-2 py-1 border flex">
                   <span
                     class="rounded py-1 pl-2 pr-1 text-gray-700 leading-tight"
-                    >{{ item.pajak | currency }}</span
+                    >{{ item.potongan | currency }}</span
                   >
                 </td>
                 <td class="table-cell px-2 py-1 border">
@@ -414,9 +414,9 @@ export default {
       return ret;
     },
     grandtotal() {
-      const netPrice = this.subtotal - this.diskon;
+      const netPrice = this.subtotal;
       const totlaPpn = this.ppn ? netPrice * (this.ppn / 100) : 0;
-      return netPrice + totlaPpn + Number(this.ongkir);
+      return netPrice + totlaPpn + Number(this.ongkir) - this.diskon;
     },
     persenDiskon() {
       return Math.abs(Number(this.diskon)) / this.grandtotal;
@@ -444,13 +444,13 @@ export default {
         let harga = Number(el.harga);
         const proporsi = harga / this.subtotal;
         const potongan = proporsi * this.diskon;
-        const pajak = this.ppn ? (harga - potongan) * (this.ppn / 100) : 0;
+        const pajak = this.ppn ? harga * (this.ppn / 100) : 0;
         calculatedItems.push({
           nama: el.nama,
           harga: Number(harga),
           pajak: Number(pajak),
           potongan: Number(potongan),
-          total: Number(Math.round(harga - potongan) + pajak),
+          total: Number(Math.round(harga + pajak) - potongan),
         });
       });
       this.ongkirPerItem = Math.round(this.ongkir / calculatedItems.length);
