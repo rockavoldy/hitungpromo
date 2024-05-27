@@ -414,9 +414,9 @@ export default {
       return ret;
     },
     grandtotal() {
-      const netPrice = this.subtotal - this.diskon;
+      const netPrice = this.subtotal;
       const totlaPpn = this.ppn ? netPrice * (this.ppn / 100) : 0;
-      return netPrice + totlaPpn + Number(this.ongkir);
+      return netPrice + totlaPpn + Number(this.ongkir) - this.diskon;
     },
     persenDiskon() {
       return Math.abs(Number(this.diskon)) / this.grandtotal;
